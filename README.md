@@ -1,7 +1,7 @@
 
 <div align="center">   
   
-# WorldDreamer: Towards General World Models for Video Generation via Predicting Masked Tokens
+# DriveDreamer4D: World Models Are Effective Data Machines \\ for 4D Driving Scene Representation
 </div>
 
  
