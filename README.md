@@ -1,7 +1,7 @@
 
 <div align="center">   
   
-# DriveDreamer4D: World Models Are Effective Data Machines \\ for 4D Driving Scene Representation
+# DriveDreamer4D: World Models Are Effective Data Machines for 4D Driving Scene Representation
 </div>
 
  
