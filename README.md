@@ -17,6 +17,10 @@ Closed-loop simulation is essential for advancing end-to-end autonomous driving 
 # DriveDreamer4D Framework
 <img width="1349" alt="method" src="https://github.com/user-attachments/assets/c783ef23-45e8-4291-81a5-befceff2f539">
 
+# Dataset Selection
+
+The eight scenarios selected are as follows: 005, 018, 027, 065, 081, 096, 121, 164 in the validation set of Waymo.
+
 
 # Rendering results in lane change novel trajectory
 
