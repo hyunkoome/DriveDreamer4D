@@ -19,7 +19,9 @@ Closed-loop simulation is essential for advancing end-to-end autonomous driving 
 # Rendering results in lane change novel trajectory
 
 <div align="center">   
+  
 https://github.com/user-attachments/assets/3b328ada-c94e-46c1-9143-f26ef87394d1
+
 </div>
 
 <div align="center">   
