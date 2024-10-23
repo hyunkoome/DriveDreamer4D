@@ -17,12 +17,12 @@ Closed-loop simulation is essential for advancing end-to-end autonomous driving 
 # DriveDreamer4D Framework
 <img width="1349" alt="method" src="https://github.com/user-attachments/assets/c783ef23-45e8-4291-81a5-befceff2f539">
 
-# Dataset Selection
+# Scenario Selection
 
-The eight scenarios selected are as follows: 005, 018, 027, 065, 081, 096, 121, 164 in the validation set of Waymo.
+The eight scenarios selected are as follows: 005, 018, 027, 065, 081, 096, 121 and 164 in the validation set of Waymo.
 
 
-# Rendering results in lane change novel trajectory
+# Rendering Results in Lane Change Novel Trajectory
 
 <div align="center">   
   
@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/8ac2b579-d5f5-4315-9aeb-658d82915eb5
 
 **Comparisons of novel trajectory renderings during lane change scenarios. The left column shows <b>PVG</b>, <b><span>S<sup>3</sup>Gaussian</span></b>, and <b>Deformable-GS</b>, while the right column shows <b><em>DriveDreamer4D</em>-PVG</b>, <b><em>DriveDreamer4D</em>-<span>S<sup>3</sup>Gaussian</span></b>, and <b><em>DriveDreamer4D</em>-Deformable-GS</b>.**
 
-# Rendering results in speed change 
+# Rendering Results in Speed Change Novel Trajectory
 <div align="center">   
   
 https://github.com/user-attachments/assets/b74ac2e4-6d2f-4af3-8ddc-2f484f912f20
