@@ -71,7 +71,7 @@ If this work is helpful for your research, please consider citing the following 
 ```
 @inproceedings{zhao2024drive,
     title={DriveDreamer4D: World Models Are Effective Data Machines for 4D Driving Scene Representation}, 
-    author={Guosheng Zhao and Chaojun Ni and Xiaofeng Wang and Zheng Zhu and Guan Huang and Xinze Chen and Boyuan Wang and Youyi Zhang and Wenjun Mei and Xingang Wang},
+    author={Guosheng Zhao and Chaojun Ni and Xiaofeng Wang and Zheng Zhu and Xueyang Zhang and Yida Wang and Guan Huang and Xinze Chen and Boyuan Wang and Youyi Zhang and Wenjun Mei and Xingang Wang},
     journal={arxiv arXiv preprint arXiv:2410.13571},
     year={2024},
 }
