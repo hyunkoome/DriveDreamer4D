@@ -12,7 +12,10 @@
 
 # Abstract 
 
-Closed-loop simulation is essential for advancing end-to-end autonomous driving systems. Contemporary sensor simulation methods, such as NeRF and 3DGS, rely predominantly on conditions closely aligned with training data distributions, which are largely confined to forward-driving scenarios. Consequently, these methods face limitations when rendering complex maneuvers (e.g., lane change, acceleration, deceleration).Recent advancements in autonomous-driving world models have demonstrated the potential to generate diverse driving videos. However, these approaches remain constrained to 2D video generation, inherently lacking the spatiotemporal coherence required to capture intricacies of dynamic driving environments. In this paper, we introduce **DriveDreamer4D**, which enhances 4D driving scene representation leveraging world model priors. Specifically, we utilize the world model as a data machine to synthesize novel trajectory videos based on real-world driving data. Notably, we explicitly leverage structured conditions to control the spatial-temporal consistency of foreground and background elements, thus the generated data adheres closely to traffic constraints. To our knowledge, **DriveDreamer4D** is the first to utilize video generation models for improving 4D reconstruction in driving scenarios. Experimental results reveal that **DriveDreamer4D** significantly enhances generation quality under novel trajectory views, achieving a relative improvement in FID by 24.5%, 39.0%, and 10.5% compared to PVG, S3Gaussian, and Deformable-GS. Moreover, **DriveDreamer4D** markedly enhances the spatiotemporal coherence of driving agents, which is verified by a comprehensive user study and the relative increases of 19.7%, 12.7%, and 11.3% in the NTA-IoU metric.
+Closed-loop simulation is essential for advancing end-to-end autonomous driving systems. Contemporary sensor simulation methods, such as NeRF and 3DGS, rely predominantly on conditions closely aligned with training data distributions, which are largely confined to forward-driving scenarios. Consequently, these methods face limitations when rendering complex maneuvers (e.g., lane change, acceleration, deceleration). Recent advancements in autonomous-driving world models have demonstrated the potential to generate diverse driving videos. However, these approaches remain constrained to 2D video generation, inherently lacking the spatiotemporal coherence required to capture intricacies of dynamic driving environments.
+In this paper, we introduce **DriveDreamer4D**, which enhances 4D driving scene representation leveraging world model priors. 
+Specifically, we utilize the world model as a data machine to synthesize novel trajectory videos, where structured conditions are explicitly leveraged to control the spatial-temporal consistency of traffic elements. Besides, the cousin data training strategy is proposed to facilitate merging real and synthetic data for optimizing 4DGS. To our knowledge, **DriveDreamer4D** is the first to utilize video generation models for improving 4D reconstruction in driving scenarios.
+Experimental results reveal that **DriveDreamer4D** significantly enhances generation quality under novel trajectory views, achieving a relative improvement in FID  by 32.1%, 46.4%, and 16.3% compared to PVG, $\text{S}^3$Gaussian, and Deformable-GS. Moreover, **DriveDreamer4D** markedly enhances the spatiotemporal coherence of driving agents, which is verified by a comprehensive user study and the relative increases of 22.6%, 43.5%, and 15.6% in the NTA-IoU metric.
 
 # DriveDreamer4D Framework
 
@@ -20,7 +23,17 @@ Closed-loop simulation is essential for advancing end-to-end autonomous driving 
 
 # Scenario Selection
 
-The eight scenarios selected are as follows: 005, 018, 027, 065, 081, 096, 121 and 164 in the validation set of Waymo.
+All selected scenes are sourced from the validation set of the Waymo dataset. The official file names of these scenes, are listed along with their respective starting and ending frames.
+| Scene | Start Frame | End Frame |
+| :-----| :----: | :----: |
+| segment-10359308928573410754_720_000_740_000_with_camera_labels.tfrecord | 120 | 159 |
+| segment-12820461091157089924_5202_916_5222_916_with_camera_labels.tfrecord | 0 | 39 |
+|segment-15021599536622641101_556_150_576_150_with_camera_labels.tfrecord|0|39|
+|segment-16767575238225610271_5185_000_5205_000_with_camera_labels.tfrecord|0|39|
+|segment-17152649515605309595_3440_000_3460_000_with_camera_labels.tfrecord|60|99|
+|segment-17860546506509760757_6040_000_6060_000_with_camera_labels.tfrecord|90|129|
+|segment-2506799708748258165_6455_000_6475_000_with_camera_labels.tfrecord|80|119|
+|segment-3015436519694987712_1300_000_1320_000_with_camera_labels.tfrecord|40|79|
 
 
 # Rendering Results in Lane Change Novel Trajectory
