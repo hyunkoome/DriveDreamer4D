@@ -21,6 +21,28 @@ Experimental results reveal that **DriveDreamer4D** significantly enhances gener
 
 <img width="1349" alt="method" src="https://github.com/user-attachments/assets/a09f5e09-450b-4d39-8388-c58b2925fece">
 
+# Install
+```
+conda create -n drivedreamer4d python=3.8
+conda activate drivedreamer4d
+pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116
+pip install -r requirments.txt
+pip install ./submodules/gsplat-1.3.0
+pip install git+https://github.com/facebookresearch/pytorch3d.git
+pip install ./submodules/nvdiffrast
+pip install ./submodules/smplx
+```
+# Prepare
+Download [data](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc) and extract it to the ./data/waymo/ directory.
+
+Download [checkpoint](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc) to ./exp/pvg_example
+
+
+# Render
+```
+python tool/eval.py --resume_from ./exp/pvg_example/checkpoint_final.pth
+```
+
 # Scenario Selection
 
 All selected scenes are sourced from the validation set of the Waymo dataset. The official file names of these scenes, are listed along with their respective starting and ending frames.
@@ -78,6 +100,10 @@ https://github.com/user-attachments/assets/eab7b98c-0466-4459-a927-d314d2ece1ce
 </div>
 
 **Comparisons of novel trajectory renderings during speed change scenarios. The left column shows <b>PVG</b>, <b><span>S<sup>3</sup>Gaussian</span></b>, and <b>Deformable-GS</b>, while the right column shows <b><em>DriveDreamer4D</em>-PVG</b>, <b><em>DriveDreamer4D</em>-<span>S<sup>3</sup>Gaussian</span></b>, and <b><em>DriveDreamer4D</em>-Deformable-GS</b>.**
+
+# Acknowledgements
+We would like to thank the following works and projects, for their open research and exploration: [DriveStudio](https://github.com/ziyc/drivestudio), [DriveDreamer](https://github.com/JeffWang987/DriveDreamer), 
+[DriveDreamer-2](https://github.com/f1yfisher/DriveDreamer2), and [DriveDreamer4D](https://github.com/GigaAI-research/DriveDreamer4D).
 
 # Bibtex
 If this work is helpful for your research, please consider citing the following BibTeX entry.

@@ -1,0 +1,14 @@
+# Ignore macOS .DS_Store files
+.DS_Store
+
+# Ignore uncommon .DC_Store files (if they exist)
+.DC_Store
+
+# Ignore Python compiled bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+data/waymo/*
+exp/pvg_example/checkpoint_final.pth

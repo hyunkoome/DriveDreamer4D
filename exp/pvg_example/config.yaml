@@ -1,0 +1,178 @@
+seed: 6666
+mix_type: change_lane_left
+trainer:
+  type: models.trainers.SingleTrainer
+  optim:
+    num_iters: 30000
+    use_grad_scaler: false
+    cache_buffer_freq: -1
+  render:
+    near_plane: 0.1
+    far_plane: 10000000000.0
+    antialiased: false
+    packed: false
+    absgrad: false
+    sparse_grad: false
+    batch_size: 1
+  losses:
+    rgb:
+      w: 0.8
+    ssim:
+      w: 0.2
+    mask:
+      w: 1.0
+      opacity_loss_type: safe_bce
+    depth:
+      w: 0.1
+      inverse_depth: true
+      normalize: false
+      loss_type: l1
+      reduction: mean_on_hw
+      weight_decay: 1.0
+    opacity_entropy:
+      w: 0.05
+    inverse_depth_smoothness:
+      w: 0.001
+  res_schedule:
+    double_steps: 5000
+    downscale_times: 3
+  gaussian_optim_general_cfg:
+    xyz:
+      lr: 0.00016
+      lr_final: 1.6e-06
+      scale_factor: scene_radius
+    sh_dc:
+      lr: 0.0025
+    sh_rest:
+      lr: 0.000125
+    opacity:
+      lr: 0.005
+    scaling:
+      lr: 0.005
+    rotation:
+      lr: 0.001
+  gaussian_ctrl_general_cfg:
+    warmup_steps: 500
+    reset_alpha_interval: 3000
+    refine_interval: 100
+    sh_degree_interval: 2000
+    n_split_samples: 2
+    reset_alpha_value: 0.01
+    densify_grad_thresh: 0.0002
+    densify_size_thresh: 0.01
+    cull_alpha_thresh: 0.005
+    cull_scale_thresh: 0.5
+    cull_screen_size: 0.15
+    split_screen_size: 0.05
+    stop_screen_size_at: 4000
+    stop_split_at: 20000
+    sh_degree: 3
+model:
+  Background:
+    type: models.gaussians.PeriodicVibrationGaussians
+    init:
+      from_lidar:
+        num_samples: 800000
+        return_color: true
+        return_normalized_time: true
+      near_randoms: 100000
+      far_randoms: 100000
+    reg:
+      sharp_shape_reg:
+        w: 1.0
+        step_interval: 10
+        max_gauss_ratio: 10.0
+      velocity_reg:
+        w: 0.001
+    optim:
+      velocity:
+        lr: 0.001
+        scale_factor: scene_radius
+      life_span:
+        lr: 0.002
+      life_peak:
+        lr: 0.0008
+        lr_final: 8.0e-06
+    ctrl:
+      cycle_length: 0.2
+      time_interval: 0.02
+      enable_temporal_smoothing: true
+      smooth_probability: 0.5
+      distribution_span: 1.5
+      betas_init: 0.1
+      densify_until_num_points: 3000000
+      densify_t_grad_thresh: 0.002
+      densify_t_size_thresh: 0.01
+      no_time_split: true
+  Sky:
+    type: models.modules.EnvLight
+    params:
+      resolution: 1024
+    optim:
+      all:
+        lr: 0.01
+  Affine:
+    type: models.modules.AffineTransform
+    params:
+      embedding_dim: 4
+      base_mlp_layer_width: 64
+      pixel_affine: false
+    optim:
+      all:
+        lr: 1.0e-05
+        weight_decay: 1.0e-06
+  CamPose:
+    type: models.modules.CameraOptModule
+    optim:
+      all:
+        lr: 1.0e-05
+        weight_decay: 1.0e-06
+render:
+  fps: 10
+  render_full: true
+  render_test: true
+  render_novel:
+    traj_types:
+    - change_lane_left
+    fps: 10
+  vis_lidar: false
+  vis_sky: false
+  vis_error: false
+logging:
+  vis_freq: 2000
+  print_freq: 500
+  saveckpt_freq: 15000
+  save_seperate_video: true
+data:
+  data_root: data/waymo/processed/validation
+  dataset: waymo
+  scene_idx: 5
+  start_timestep: 120
+  end_timestep: 159
+  preload_device: cuda
+  pixel_source:
+    type: datasets.waymo.waymo_sourceloader.WaymoPixelSource
+    cameras:
+    - 0
+    downscale_when_loading:
+    - 1
+    downscale: 2
+    undistort: false
+    test_image_stride: 0
+    load_sky_mask: true
+    load_dynamic_mask: true
+    load_objects: false
+    load_smpl: false
+    sampler:
+      buffer_downscale: 8
+      buffer_ratio: 0.5
+      start_enhance_weight: 3
+  lidar_source:
+    type: datasets.waymo.waymo_sourceloader.WaymoLiDARSource
+    load_lidar: true
+    only_use_top_lidar: false
+    truncated_max_range: 80
+    truncated_min_range: -2
+    lidar_downsample_factor: 4
+    lidar_percentile: 0.02
+log_dir: exp/pvg_example
