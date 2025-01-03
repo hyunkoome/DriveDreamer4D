@@ -885,7 +885,9 @@ class BasicTrainer(nn.Module):
                 continue
             msg = model.load_state_dict(model_state_dict[class_name], strict=strict)
             logger.info(f"{class_name}: {msg}")
-        msg = super().load_state_dict(state_dict, strict)
+
+        # msg = super().load_state_dict(state_dict, strict)
+        msg = super().load_state_dict(state_dict, strict=False) # hkkim
         logger.info(f"BasicTrainer: {msg}")
         
     def resume_from_checkpoint(

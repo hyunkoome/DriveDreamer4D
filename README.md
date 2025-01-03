@@ -26,7 +26,38 @@ Experimental results reveal that **DriveDreamer4D** significantly enhances gener
 conda create -n drivedreamer4d python=3.8
 conda activate drivedreamer4d
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
-pip install -r requirments.txt
+pip install -r requirements.txt
+
+# Install the glm library. This provides the header files needed to compile gsplat.
+sudo apt-get install libglm-dev
+
+# Verify glm installation  
+ls /usr/include/glm  
+
+# RTX4090:8.9, A100:8.0
+export TORCH_CUDA_ARCH_LIST="8.0 8.9"
+
+# Confirm 
+echo $TORCH_CUDA_ARCH_LIST  
+
+# Check compiler compatibility
+nvcc --version
+g++ --version 
+
+# For CUDA 12.1, it is safe to use gcc/g++ 11 or lower.
+# If gcc is the latest version, install and replace it with the appropriate version.
+# Install gcc-11:
+sudo apt-get install gcc-11 g++-11
+
+# Change default gcc/g++ settings
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 100
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
+
+# check g++ version
+g++ --version
+
 pip install ./submodules/gsplat-1.3.0
 pip install git+https://github.com/facebookresearch/pytorch3d.git
 pip install ./submodules/nvdiffrast
@@ -34,14 +65,53 @@ pip install ./submodules/smplx
 ```
 # Prepare
 Download data ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing))  and extract it to the ./data/waymo/ directory.
+```shell
+cd data
+ln -s /home/hyunkoo/Dataset/NAS/nfsRoot/Datasets/Waymo_Datasets/DriveDreamer4D/data/waymo waymo 
+```
 
 Download checkpoint ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing)) to ./exp/pvg_example
-
+```shell
+cd exp/pvg_example/
+ln -s /home/hyunkoo/Dataset/NAS/nfsRoot/Datasets/Waymo_Datasets/DriveDreamer4D/exp/pvg_example/checkpoint_final.pth checkpoint_final.pth
+```
 
 # Render
+
+#### for this process, I updated a code at line 889, `DriveDreamer4D/models/trainers/base.py` because of following error message:
+```shell
+state_dict = torch.load(ckpt_path)
+Traceback (most recent call last):
+  File "tools/eval.py", line 283, in <module>
+    main(args)
+  File "tools/eval.py", line 213, in main
+    trainer.resume_from_checkpoint(
+  File "/home/hyunkoo/DATA/HDD8TB/Add_Objects_DrivingScense/DriveDreamer4D/models/trainers/base.py", line 903, in resume_from_checkpoint
+    self.load_state_dict(state_dict, load_only_model=load_only_model, strict=strict,step=step)
+  File "/home/hyunkoo/DATA/HDD8TB/Add_Objects_DrivingScense/DriveDreamer4D/models/trainers/base.py", line 888, in load_state_dict
+    msg = super().load_state_dict(state_dict, strict)
+  File "/home/hyunkoo/anaconda3/envs/drivedreamer4d/lib/python3.8/site-packages/torch/nn/modules/module.py", line 2215, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for SingleTrainer:
+        Missing key(s) in state_dict: "lpips.net.scaling_layer.shift", "lpips.net.scaling_layer.scale". 
 ```
-python tool/eval.py --resume_from ./exp/pvg_example/checkpoint_final.pth
+```python
+# msg = super().load_state_dict(state_dict, strict)
+msg = super().load_state_dict(state_dict, strict=False) # hkkim
 ```
+
+```
+python tools/eval.py --resume_from ./exp/pvg_example/checkpoint_final.pth
+```
+
+Create demo
+```shell
+cd utils
+python create_demo_video.py
+```
+
+<img width="1349" alt="method" src="docs/figures/pvg_example.gif">
+
 
 # Scenario Selection
 

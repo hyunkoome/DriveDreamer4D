@@ -1,4 +1,7 @@
-xformers==0.0.18
+torch==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cu121
+xformers==0.0.28 # --index-url https://download.pytorch.org/whl/cu121 #==0.0.18
 timm==0.9.5
 pytorch_msssim==1.0.0
 
@@ -27,3 +30,4 @@ gdown
 
 nerfview==0.0.3
 lpips==0.1.4
+imageio
