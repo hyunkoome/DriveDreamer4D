@@ -12,3 +12,4 @@ __pycache__/
 
 data/waymo/*
 exp/pvg_example/checkpoint_final.pth
+.idea/
