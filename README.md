@@ -67,13 +67,13 @@ pip install ./submodules/smplx
 Download data ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing))  and extract it to the ./data/waymo/ directory.
 ```shell
 cd data
-ln -s /home/hyunkoo/Dataset/NAS/nfsRoot/Datasets/Waymo_Datasets/DriveDreamer4D/data/waymo waymo 
+ln -s {My download folder}/DriveDreamer4D/data/waymo waymo 
 ```
 
 Download checkpoint ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing)) to ./exp/pvg_example
 ```shell
 cd exp/pvg_example/
-ln -s /home/hyunkoo/Dataset/NAS/nfsRoot/Datasets/Waymo_Datasets/DriveDreamer4D/exp/pvg_example/checkpoint_final.pth checkpoint_final.pth
+ln -s {My download folder}/DriveDreamer4D/exp/pvg_example/checkpoint_final.pth checkpoint_final.pth
 ```
 
 # Render
