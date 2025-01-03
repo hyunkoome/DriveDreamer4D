@@ -33,9 +33,9 @@ pip install ./submodules/nvdiffrast
 pip install ./submodules/smplx
 ```
 # Prepare
-Download [data](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc) and extract it to the ./data/waymo/ directory.
+Download data ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing))  and extract it to the ./data/waymo/ directory.
 
-Download [checkpoint](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc) to ./exp/pvg_example
+Download checkpoint ([Baidu](https://pan.baidu.com/s/18huHwBVOu0T796NXLt1LCA?pwd=5zpc), [Google](https://drive.google.com/drive/folders/1gVrs4FbMUwb40L-4dPvM7V8nzKBWza2Z?usp=sharing)) to ./exp/pvg_example
 
 
 # Render
